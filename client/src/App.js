@@ -11,7 +11,7 @@ function App() {
       <Route path='/'>
         <Navbar/>
       </Route>
-      <Route exact path='/initial'>
+      <Route exact path='/'>
         <InitialComponent/>
       </Route>
       <Route exact path='/principal'>
