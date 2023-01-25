@@ -1,25 +1,52 @@
 const {Router} = require("express");
 const {Recipe, Diet} = require("../db");
-const {postRecipe, getAllRecipes, getRecipeById, getRecipeByName} = require("../controllers/recipesControllers");
+const {postRecipe, getAllRecipes, getRecipeById, getRecipeByName, getRecipesApi, getRecipesDb, getRecipesByDiet } = require("../controllers/recipesControllers");
 
 const recipesRouter = Router();
 
 recipesRouter.get("/", async (req, res) => {
-    const {name} = req.query;
+    const {name, diet} = req.query;
     try {
       if(name) {
           const recipe = await getRecipeByName(name);
-          if (!recipe.length) {
-            res.status(400).json("No existe la receta con ese nombre")
-        } else{res.status(200).json(recipe)}
-      }else{
-      const recipes = await getAllRecipes();
-      res.status(200).json(recipes);
+          // if (!recipe.length) {
+          // res.status(400).json("No existe la receta con ese nombre")
+        // }else{
+        //   res.status(200).json(recipe)}
+        }else{ 
+        const recipes = await getAllRecipes();
+        res.status(200).json(recipes);
       }
     } catch (error) {
       res.status(400).json({error: error.message})
     }
 });
+
+// if(diet){
+//   const recipe = await getRecipesByDiet(diet)
+//   if(!recipe.length){
+//     res.status(400).json("No existe receta con esa dieta")
+//   }else{
+//     res.status(200).json(recipe)
+//   }
+
+recipesRouter.get("/api", async (req, res) => {
+  try {
+    const recipes = await getRecipesApi();
+    res.status(200).json(recipes)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+})
+
+recipesRouter.get("/db", async (req, res) => {
+  try {
+    const recipes = await getRecipesDb();
+    res.status(200).json(recipes)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+})
 
 recipesRouter.get("/:id", async (req,res) => {
     const id = req.params.id;
@@ -36,18 +63,21 @@ recipesRouter.get("/:id", async (req,res) => {
 });
 
 recipesRouter.post("/", async (req, res) => {
+  console.log(req.body)
     try {
-        const { name, summary, healthScore, image, steps, diets } = req.body;
+        const { name, summary, healthScore, image, steps, dietss } = req.body;
+        const nameCapitalize = name[0].toUpperCase() + name.substring(1);
         const newRecipe = await Recipe.create({
-          name,
+          name: nameCapitalize,
           summary,
           healthScore,
           image,
-          steps
+          steps,
+          dietss
         });
         let getAllDiet = await Diet.findAll({
           where: {
-            name: diets
+            name: dietss
           }
         });
         newRecipe.addDiet(getAllDiet);

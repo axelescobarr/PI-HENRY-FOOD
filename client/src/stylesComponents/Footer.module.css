@@ -1,14 +1,13 @@
 .footerContainer{
-    background-color: rgba(0, 0, 0,0.5);
+    background-color: rgba(0, 0, 0,0.9);
     display: flex;
     justify-content: center;
     align-items: center;
     color: rgb(182, 182, 182);
     height: 40px;
     font-size: 8px;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
-    top: 623px;
 }
 
 

@@ -1,0 +1,66 @@
+.principalContainer{
+    min-height: 45rem;
+    background-image: url('../imagenes/Fondos\ de\ pantalla\ de\ comida\ -\ FondosMil_files/35786.jpg');
+    background-color: rgba(0,0,0,0.7);
+    background-blend-mode: soft-light;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5rem;
+    width: 100%;
+}
+
+.backImage{
+    width: 2rem;
+    height: 2rem;
+}
+
+.textContainer{
+    width: 25rem;
+    margin: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFDD2D;
+    border-radius: 2rem;
+    font-family: 'Dancing Script', cursive;
+    color: rgb(97, 97, 97);
+    font-size: 1.5rem;
+}
+
+
+
+.dietsContainer{
+    margin-bottom: 3rem;
+    color: aliceblue;
+}
+
+.dietContainer{
+    width: 30rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'poppins';
+}
+
+.dietContainer h2{
+    color: #FFDD2D;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+}

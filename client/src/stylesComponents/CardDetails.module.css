@@ -1,0 +1,151 @@
+.container{
+    min-height: 40rem;
+    background-image: url('../imagenes/Fondos\ de\ pantalla\ de\ comida\ -\ FondosMil_files/35747.jpg');
+    background-color: rgba(0,0,0,0.6);
+    background-blend-mode: soft-light;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.backImage{
+    width: 2rem;
+    height: 2rem;
+}
+
+.detailsContainer{
+    background-color: rgba(0,0,0,0.5);
+    color: aliceblue;
+    width: 90%;
+    height: 38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 3rem auto;
+    border-radius: 4rem;
+    border: 3px solid #FFDD2D;
+}
+
+.imgInfoContainer{
+    width: 50%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.infoContainer{
+    width: 50%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    font-family: 'Dancing Script', cursive;
+    color: #FFDD2D;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.image{
+    border-radius: 2rem;
+    border: 3px solid #FFDD2D;
+    margin-bottom: 1rem;
+}
+
+.hs{
+    color: #FFDD2D;
+    width: 15rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.dietsContainer{
+    width: 90%;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.diet{
+    color: black;
+    background-color: #FFDD2D;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    margin: 0.4rem;
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.summaryContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 40%;
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.titleSummary{
+    font-family: 'Dancing Script', cursive;
+    color: #FFDD2D;
+    margin-bottom: 0;
+}
+
+.summary{
+    font-family: 'Roboto';
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.stepsContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 60%;
+}
+
+.stepTitle{
+    font-family: 'Dancing Script', cursive;
+    color: #FFDD2D;
+    margin-bottom: 0;
+}
+
+.stepContent{
+    margin-top: 6rem;
+}
+
+.number{
+    color: #FFDD2D;
+}

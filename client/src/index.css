@@ -41,8 +41,104 @@ code {
   border-radius: 15px;
 }
 
+.navbarLink{
+  text-decoration: none;
+  color: aliceblue;
+  height: 20px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  margin-right: 1rem;
+}
+
 .link:hover{
   border: 2px solid black;
   color: black;
   background-color: white;
 }
+
+.navbarLink:hover{
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+}
+
+.cardLink{
+  margin: 0.5rem;
+  width: 9rem;
+  height: 1.6rem;
+  text-decoration: none;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.cardLink:hover{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+
+}
+
+.back{
+  color: black;
+  background-color: #FFDD2D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 0 15px 15px 0;
+  width: 6rem;
+  height: 2.5rem;
+}
+
+.cardDietLink{
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0.3rem;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    color: aliceblue;
+    border: 1px solid #FFDD2D;
+}
+
+.cardDietLink:hover{
+  background-color: #FFDD2D;
+  color: black;
+
+}
+
+.steps{
+  background-color: #FFDD2D;
+  border: 2px solid #FFDD2D;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 2rem;
+  width: 10rem;
+  height: 2.5rem;
+}
+
+.steps:hover{
+  background-color: black;
+  color: #FFDD2D;
+}
+
+.range::-moz-range-progress{
+  background-color: #FFDD2D;
+}
+

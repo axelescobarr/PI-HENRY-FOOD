@@ -1,0 +1,99 @@
+.navbar{
+    background-color: rgba(0,0,0,0.5);
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 55px;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid #FFDD2D;
+}
+
+.icons{
+    margin-right: 6rem;
+    display: flex;
+}
+
+.componentsNavbar{
+    display: flex;
+}
+
+.logo{
+    display: flex;
+    margin-left: 2rem;
+}
+.wiki{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 56px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.food{
+    font-family: 'Roboto Condensed';
+    font-style: 'regular';
+    font-weight: 500;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.github{
+    background-color: rgb(255, 255, 255);
+    width: 30px;
+    height: 30px;
+    margin-right: 2rem;
+}
+
+.linkedin{
+    background-color: rgb(255, 255, 255);
+  width: 30px;
+  height: 30px;
+}
+
+.lupaContainer{
+    height: 23px;
+    width: 23px;
+    padding: 0;
+    background-color: black;
+    border: none;
+}
+
+.lupa{
+    height: 22px;
+    width: 22px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 0.2rem;
+}
+.searchInput{
+    border-radius: 10px 0 0 10px;
+    height: 20px;
+    width: 250px;
+    border: 1px solid black;
+    border-right: none;
+}
+
+.buttonsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5rem;
+}

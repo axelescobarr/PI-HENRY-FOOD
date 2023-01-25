@@ -20,16 +20,20 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      healthScore: {
-        type: DataTypes.INTEGER
-      },
-      steps: {
-        type: DataTypes.ARRAY(DataTypes.JSONB)  
-      },
       image: {
         type: DataTypes.STRING,
         defaultValue: 'https://cutt.ly/VZcVXeE'
+      },
+      healthScore: {
+        type: DataTypes.INTEGER
+      },
+      dietss: {
+        type: DataTypes.ARRAY(DataTypes.STRING) 
+      },
+      steps: {
+        type: DataTypes.ARRAY(DataTypes.JSONB)  
       }
+      
     },
     { timestamps: false }
   );

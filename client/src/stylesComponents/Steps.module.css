@@ -1,0 +1,49 @@
+.container{
+    min-height: 40rem;
+    background-image: url('../imagenes/Fondos\ de\ pantalla\ de\ comida\ -\ FondosMil_files/35782.jpg');
+    background-color: rgba(0,0,0,0.6);
+    background-blend-mode: soft-light;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.backImage{
+    width: 2rem;
+    height: 2rem;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.stepsContainer{
+    background-color: rgba(0,0,0,0.5);
+    color: aliceblue;
+    border-radius: 3rem;
+    border: 3px solid #FFDD2D;
+    margin-bottom: 3rem;
+    width: 90%;
+    padding: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.number{
+    color: #FFDD2D;
+    margin-right: 1rem; 
+}

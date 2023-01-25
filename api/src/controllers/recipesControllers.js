@@ -7,7 +7,7 @@ const getRecipesApi = async () => {
     return ( 
         await axios
         //aca tengo que hacer la llamada a la api correspondiente pero estoy usando este mocky para no gastar las request limitadas.
-        .get("https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5")
+        .get("http://localhost:3002/posts")
         .then(recipes => { 
             const recipesFilter = recipes.data.results.map(recipe => {
                 return{
@@ -15,8 +15,8 @@ const getRecipesApi = async () => {
                     name: recipe.title,
                     summary: recipe.summary,
                     image: recipe.image,
-                    hS: recipe.healthScore,
-                    diet: recipe.diets,
+                    healthScore: recipe.healthScore,
+                    dietss: recipe.diets,
                     steps: recipe.analyzedInstructions[0]?.steps.map(step => {
                         return{
                             step: step.step,
@@ -65,7 +65,8 @@ const getAllRecipes = async () => {
     try {
         const recipesApi = await getRecipesApi();
         const recipesDb = await getRecipesDb();
-        const allRecipes = recipesApi.concat(recipesDb);
+        const allRecipes = [...recipesDb, ...recipesApi]
+        allRecipes.flat();
         return allRecipes;
     } catch (error) {
         return error;
@@ -74,7 +75,7 @@ const getAllRecipes = async () => {
 
 const getRecipeByName = async (name) => {
     if (!name) throw new Error("Falta el nombre, no se puede buscar");
-    if(name.length < 4) throw new Error("Nombre muy corto")
+    // if(name.length < 4) throw new Error("Nombre muy corto")
     name = name.toLowerCase();
     try {
         const allRecipes = await getAllRecipes();
@@ -96,10 +97,24 @@ const getRecipeById = async(id) => {
     }
 };
 
+// const getRecipesByDiet = async(diet) => {
+//     if (!diet) throw new Error("Falta el nombre, no se puede buscar");
+//     if(diet.length < 4) throw new Error("Nombre de dieta muy corto")
+//     try {
+//         const allRecipes = await getAllRecipes();
+//         const recipe = allRecipes.filter(recip => recip.dietss.includes(diet) === true);
+//         return recipe;
+//     } catch (error) {
+//         return error;
+//     }
+// }
+
 module.exports = {
     postRecipe,
     getAllRecipes,
     getRecipeById,
-    getRecipeByName
+    getRecipeByName,
+    getRecipesApi,
+    getRecipesDb
 }
 
