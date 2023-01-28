@@ -24,31 +24,31 @@ const reducer = (state = initialState, action) => {
         case GET_RECIPES:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
             }
 
         case ORDER_AZ:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
             }
 
         case ORDER_ZA:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.name > b.name ? -1 : a.name < b.name ? 1 : 0))
             }
 
         case HS_AMAYOR:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.healthScore > b.healthScore ? 1 : a.healthScore < b.healthScore ? -1 : 0))
             }
 
         case HS_AMENOR:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.healthScore > b.healthScore ? -1 : a.healthScore < b.healthScore ? 1 : 0))
             }
 
         case GET_RECIPES_API:
@@ -66,13 +66,13 @@ const reducer = (state = initialState, action) => {
         case GET_FILTER_DIET:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.recipes.sort((a,b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)).filter(recipe => recipe.dietss.includes(action.payload.diet))
             }
 
         case GET_RECIPES_NAME:
             return{
                 ...state,
-                recipes: action.payload
+                recipes: action.payload.sort((a,b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
             }
 
         case GET_RECIPE_ID:

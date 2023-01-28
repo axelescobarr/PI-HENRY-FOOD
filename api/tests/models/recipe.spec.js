@@ -14,8 +14,23 @@ describe('Recipe model', () => {
           .then(() => done(new Error('It requires a valid name')))
           .catch(() => done());
       });
+      it('should throw an error if summary is null', (done) => {
+        Recipe.create({})
+          .then(() => done(new Error('It requires a valid summary')))
+          .catch(() => done());
+      });
       it('should work when its a valid name', () => {
         Recipe.create({ name: 'Milanesa a la napolitana' });
+      });
+    });
+    describe('summary', () => {
+      it('should throw an error if summary is null', (done) => {
+        Recipe.create({})
+          .then(() => done(new Error('It requires a valid summary')))
+          .catch(() => done());
+      });
+      it('should work when its a valid name', () => {
+        Recipe.create({ summary: 'El asado es un conjunto de carne cocinada' });
       });
     });
   });

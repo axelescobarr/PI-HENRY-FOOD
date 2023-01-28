@@ -16,9 +16,9 @@ export default function Page(props) {
                  <NavLink className='back' to= {`/details/${recipe.id}`}><img alt='back' className={s.backImage} src={back}/> BACK</NavLink>
             </div>}
             {recipe && <div className={s.stepsContainer}>
-                {console.log(recipe.steps)}
                 { recipe.steps.length > 1 && <p className={s.step}>{recipe.steps.map(step => <p><b className={s.number}>{step.number}</b>  {step.step}</p>)}</p>}
-                { recipe.steps.length === 1 && <p className={s.step}>{recipe.steps.map(step => <p>{step}</p>)}</p>}
+                { recipe.steps.length === 1 && recipe.steps[0].number &&<p className={s.step}>{recipe.steps.map(step => <p>{step.step}</p>)}</p>}
+                { recipe.steps.length === 1 && !recipe.steps[0].number && <p className={s.step}>{recipe.steps.map(step => <p>{step}</p>)}</p>}
             </div>}
         </div>
     )

@@ -22,5 +22,3 @@ export default function Page(props) {
         </div>
     )
 }
-
-<NavLink className='textLink' to= "/allcharacters">All the characters</NavLink>

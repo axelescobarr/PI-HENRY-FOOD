@@ -16,14 +16,10 @@ function App() {
     <div>
       <Route exact path='/'>
         <Navbar/>
-      </Route>
-      <Route exact path='/principal'>
-        <NavbarPrincipal/>
-      </Route>
-      <Route exact path='/'>
         <InitialComponent/>
       </Route>
       <Route exact path='/principal'>
+        <NavbarPrincipal/>
         <PrincipalComponent/>
       </Route>
       <Route exact path='/create'>
