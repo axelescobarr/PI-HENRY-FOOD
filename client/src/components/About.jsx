@@ -1,5 +1,4 @@
 import s from '../stylesComponents/About.module.css';
-import img from '../imagenes/Fondos de pantalla de comida - FondosMil_files/35742.jpg'
 import back from '../imagenes/back.png';
 import { NavLink } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ export default function About(props) {
     return(
         <div className={s.principalContainer}>
             <div className={s.btnContainer}>
-                 <NavLink className='back' to= "/principal"><img className={s.backImage} src={back}/> BACK</NavLink>
+                 <NavLink className='back' to= "/principal"><img alt='back' className={s.backImage} src={back}/> BACK</NavLink>
             </div>
             <div className={s.targets}>
                 <div className={s.imgContainer}>

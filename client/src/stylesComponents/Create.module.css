@@ -125,3 +125,36 @@ input{
     color: #FFDD2D;
 }
 
+.errorContainer{
+    color: red;
+    border: 2px solid red;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
+.errorText{
+    margin: 0.3rem;
+}
+
+.okContainer{
+    color: rgb(34, 153, 23);
+    border: 2px solid rgb(34, 153, 23);
+    margin-top: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
+.okText{
+    margin: 0.3rem;
+}

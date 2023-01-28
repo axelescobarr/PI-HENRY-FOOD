@@ -1,8 +1,22 @@
-import { GET_RECIPES, ORDER_AZ, ORDER_ZA, HS_AMAYOR, HS_AMENOR ,GET_RECIPES_API, GET_RECIPES_DB, GET_FILTER_DIET, GET_RECIPES_NAME, GET_RECIPE_ID, POST_RECIPE} from "./action"
+import { 
+    GET_RECIPES, 
+    ORDER_AZ, 
+    ORDER_ZA,
+    HS_AMAYOR,
+    HS_AMENOR ,
+    GET_RECIPES_API, 
+    GET_RECIPES_DB, 
+    GET_FILTER_DIET, 
+    GET_RECIPES_NAME, 
+    GET_RECIPE_ID, 
+    POST_RECIPE,
+    SET_NAME_DETAIL,
+    SET_DIET} from "./action"
 
 const initialState = {
     recipes: '',
-    recipeDetail: ''
+    recipeDetail: '',
+    nameDetail: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -70,6 +84,17 @@ const reducer = (state = initialState, action) => {
         case POST_RECIPE:
             return{
                 ...state,
+            }
+
+        case SET_NAME_DETAIL:
+            return{
+                ...state,
+                nameDetail: action.payload
+            }
+
+        case SET_DIET:
+            return{
+                ...state
             }
 
         default:

@@ -66,7 +66,7 @@ const getAllRecipes = async () => {
         const recipesApi = await getRecipesApi();
         const recipesDb = await getRecipesDb();
         const allRecipes = [...recipesDb, ...recipesApi]
-        allRecipes.flat();
+
         return allRecipes;
     } catch (error) {
         return error;
@@ -75,7 +75,6 @@ const getAllRecipes = async () => {
 
 const getRecipeByName = async (name) => {
     if (!name) throw new Error("Falta el nombre, no se puede buscar");
-    // if(name.length < 4) throw new Error("Nombre muy corto")
     name = name.toLowerCase();
     try {
         const allRecipes = await getAllRecipes();
@@ -90,24 +89,13 @@ const getRecipeById = async(id) => {
     try {
         if(!id) throw new Error("Faltan datos por completar (id)")
         const allRecipes = await getAllRecipes();
-        const recipe = allRecipes.filter(recipe => recipe.id === parseInt(id));
+        const recipe = allRecipes.filter(recipe => recipe.id == id);
         return recipe;
     } catch (error) {
         return error;
     }
 };
 
-// const getRecipesByDiet = async(diet) => {
-//     if (!diet) throw new Error("Falta el nombre, no se puede buscar");
-//     if(diet.length < 4) throw new Error("Nombre de dieta muy corto")
-//     try {
-//         const allRecipes = await getAllRecipes();
-//         const recipe = allRecipes.filter(recip => recip.dietss.includes(diet) === true);
-//         return recipe;
-//     } catch (error) {
-//         return error;
-//     }
-// }
 
 module.exports = {
     postRecipe,

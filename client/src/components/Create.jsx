@@ -3,8 +3,7 @@ import back from '../imagenes/back.png';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postRecipe } from '../Redux/action';
-import axios from 'axios';
+import { postRecipe, getRecipes } from '../Redux/action';
 
 export default function Create(props) {
 
@@ -17,73 +16,105 @@ export default function Create(props) {
     const [image, setImage] = useState("");
     const [diets, setDiets] = useState([]);
     const [state, setState] = useState('');
-    const [error, setError] = useState("");
+    const [stateImage, setStateImage] = useState('');
+    const [error, setError] = useState('');
+    const [ok, setOk] = useState('');
 
     const nameHandler = (value) => {
         let name = value.target.value;
+
         if (name.length > 254){
-            setError("El nombre no puede tener mas de 255 caracteres.")
+            setError("The name cannot have more than 255 characters")
         }
-        if(name.length < 254){
+        if((/[^a-zA-Z\s]/.test(name))) setError("The name cannot contain numbers or symbols");
+        if(name.length < 254 && (!/[^a-zA-Z\s]/.test(name))){
             setError("");
-            }
+        }
+        setOk("");
         setName(name);
     };
     const summaryHandler = (value) => {
         let summary = value.target.value;
         if(summary.length > 254){
-            setError("El resumen no puede tener mas de 255 caracteres.")
+            setError("The summary cannot have more than 255 characters")
         }
         if(summary.length < 254){
         setError("");
         }
+        setOk("");
         setSummary(summary);
     };
 
     const stepsHandler = (value) => {
         let step = value.target.value;
         if(step.length > 254){
-            setError("Los steps no puede tener mas de 255 caracteres.")
+            setError("The steps cannot have more than 255 characters")
         }
         if(step.length < 254){
         setError("");
         }
-        setSteps([...steps, step]);
+        setOk("");
+        setSteps([step]);
     };
 
     const hsHandler = (value) => {
         let hs = value.target.value;
+        setError("");
         setHs(hs);
     };
 
     const imageHandler = (value) => {
         let image = value.target.value;
+        if(image.length > 254){
+            setError("The URl of the images cannot have more than 255 characters")
+        }
+        if(image.length < 254){
+            setError("");
+        }
+        setOk("");
         setImage(image);
     };
 
     const dietsHandler = (value) => {
         let diet = value.target.value;
-        setDiets([...diets, diet]);
-        setState({name, summary, steps, image, healthScore: hs, dietss: [...diets, diet]})
+        if(diet.length > 0) setError('');
+        if(diets.includes(diet)) {setError("This diet is already added");
+    }else{setDiets([...diets, diet]);
+          setOk("");
+          setState({name, summary, steps, image, healthScore: hs, dietss: [...diets, diet]})
+          setStateImage({name, summary, steps, healthScore: hs, dietss: [...diets, diet]})
+    }
     };
 
     const submitHandler = (e) => {
-        // setState({name, summary, steps, image, healthScore: hs, dietss: diets})
-        console.log(state);
-        setName("");
-        setSummary("");
-        setSteps("");
-        setHs("");
-        setDiets([]);
-        setImage("");
+        if(!name) setError('Name is required')
+        if(!summary) setError('Summary is required')
+        if(!steps.length) setError('Steps are required')
+        if(!hs) setError('HealthScore is required')
+        if(!diets.length) setError('Minimally add one type of diet')
+       
+        if(name && summary && steps.length && hs && diets.length && error === ''){
+            setName("");
+            setSummary("");
+            setSteps("");
+            setHs("");
+            setDiets([]);
+            setImage("");
+            dispatch(getRecipes());
+            if(image){
+                dispatch(postRecipe(state));
+            }else{
+                dispatch(postRecipe(stateImage));
+            }
+            setOk("Recipe created successfully");
+        }
         e.preventDefault();
-        dispatch(postRecipe(state));
     };
 
     return(
         <div className={s.create}>
             <div className={s.btnContainer}>
-                 <NavLink className='back' to= "/principal"><img className={s.backImage} src={back}/> BACK</NavLink>
+                 <NavLink className='back' to= "/principal"><img alt='back' className={s.backImage} src={back}/> BACK</NavLink>
             </div>
             <div className={s.formContainer}>
                   <form onSubmit={submitHandler} className={s.form}>
@@ -92,20 +123,19 @@ export default function Create(props) {
                     </div>
                     <div className={s.inputsContainer}>
                         <div className={s.input}>
-                            <label className={s.label}>ADD YOUR RECIPE NAME</label>
+                            <label className={s.label}>* ADD YOUR RECIPE NAME</label>
                              <input value={name} onChange={nameHandler} type='text' name='name' key='name'/>
-                             {console.log(state)}
                         </div>
                         <div  className={s.input}>
-                            <label className={s.label}>ADD YOUR RECIPE DESCRIPTION</label>
+                            <label className={s.label}>* ADD YOUR RECIPE SUMMARY</label>
                              <input value={summary} onChange={summaryHandler} type='text' name='description' key='description'/>
                         </div>
                         <div  className={s.input}>
-                            <label className={s.label}>ADD YOUR RECIPE STEPS</label>
+                            <label className={s.label}>* ADD YOUR RECIPE STEPS</label>
                              <input value={steps} onChange={stepsHandler} type='text' name='steps' key='steps'/>
                         </div>
                         <div className={s.input}>
-                            <label className={s.label}>HEALTHSCORE: {hs}</label>
+                            <label className={s.label}>* HEALTHSCORE: {hs}</label>
                              <input class='range' value={hs} onChange={hsHandler} type='range' min="0" max="100" name='description' key='description'/>
                         </div>
                         <div className={s.input}>
@@ -113,7 +143,7 @@ export default function Create(props) {
                              <input value={image} onChange={imageHandler} type='text' name='url' key='url'/>
                         </div>
                         <div className={s.input}>
-                            <label className={s.label}>ADD YOUR DIET TYPES</label>
+                            <label className={s.label}>* ADD YOUR DIET TYPES</label>
                             <select multiple={false} value={diets} onChange={dietsHandler} className={s.dietSelect} name='typesDiet' key="diets">
                                  <option >Select...</option>
                                  <option value="gluten free">Gluten free</option>
@@ -127,15 +157,18 @@ export default function Create(props) {
                                  <option value="dairy free">Dairy free</option>
                             </select>
                         { error && <div className={s.errorContainer}>
-                            <h3>{error}</h3>
+                            <h3 className={s.errorText}>{error}</h3>
+                        </div>}
+                        { ok && <div className={s.okContainer}>
+                            <h3 className={s.okText}>{ok}</h3>
                         </div>}
                         </div>
                         { diets.length && <div className={s.dietsContainer}>
                             {diets.length && diets.map(diet => <p key={diet} className={s.diet}>{diet}</p>)}
                         </div>}
-                        <div className={s.submitContainer}>
+                        {!error && <div className={s.submitContainer}>
                              <input className={s.submit} type='submit' value='SUBMIT'/>
-                        </div>
+                        </div>}
                     </div>
                   </form>
             </div>

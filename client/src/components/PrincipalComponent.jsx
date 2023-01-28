@@ -1,5 +1,5 @@
 import s from '../stylesComponents/PrincipalComponent.module.css';
-import { getRecipes, orderAZ, orderZA, hsMayor, hsMenor, getRecipesApi, getRecipesDb, getFilterDiet } from '../Redux/action';
+import { getRecipes, orderAZ, orderZA, hsMayor, hsMenor, getRecipesApi, getRecipesDb, getFilterDiet, setNameDetail } from '../Redux/action';
 import Card from './Card';
 import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ export default function PrincipalComponent(props) {
 
     // const [recipes, setRecipes] = useState([]);
     const recipes = useSelector((state) => state.recipes)
+    const nameDetail = useSelector((state) => state.nameDetail)
     const dispatch = useDispatch();
 
     const [page, setPage] = useState(1);
@@ -16,6 +17,7 @@ export default function PrincipalComponent(props) {
     const [hs, setHs] = useState('');
     const [origin, setOrigin] = useState('');
     const [diet, setDiet] = useState('');
+    const [diets, setDiets] = useState([]);
 
     const numberOfRecipes = 9;
     const recipesPage = page * numberOfRecipes;
@@ -24,8 +26,9 @@ export default function PrincipalComponent(props) {
     const totalPages = Math.ceil(recipes.length / numberOfRecipes);
 
     useEffect(() => {
-        dispatch(getRecipes());
-    },[])
+        // dispatch(getRecipes());
+        setDiets([]);
+    },[nameDetail])
 
     const incrementPage = () =>{
         if(page >= totalPages){
@@ -84,11 +87,12 @@ export default function PrincipalComponent(props) {
      }
 
      const handlerDiet = (value) => {
-        if(value.target.value == 'all') {
+        if(value.target.value === 'all') {
             dispatch(getRecipes())
         }else{
             dispatch(getFilterDiet(value.target.value, recipes))
             setDiet(value.target.value);
+            setDiets([...diets, value.target.value])
         }
         
      }
@@ -98,7 +102,9 @@ export default function PrincipalComponent(props) {
         setHs("");
         setDiet("");
         setOrigin("");
-        dispatch(getRecipes())
+        setDiets([]);
+        dispatch(setNameDetail(''));
+        dispatch(getRecipes());
      }
 
     return recipes.length > 0 && recipes !== undefined ? (
@@ -143,9 +149,13 @@ export default function PrincipalComponent(props) {
                     </select>
                 </div>
                 <div className={s.buttonContainer}>
-                    <button onClick={resetFilter} className={s.boton}>Reset</button>
+                    <button onClick={resetFilter} className={s.boton}>Reset Filters</button>
                 </div>
             </div>
+            {(diets.length || nameDetail.length) && <div className={s.filterContainer}>
+                {diets && diets.map(d => <p key={d} className={s.diet}>{d}</p>)}
+                {nameDetail && <p className={s.nameDetail}>{nameDetail}</p>}
+            </div>}
             <div className={s.pageContainer}>
                 <button onClick={decrementPage} className={s.btn}><h1>&lt;</h1></button>
                 <h1 className={s.pageText}>PAGE {page} FROM {totalPages}</h1>
@@ -203,7 +213,7 @@ export default function PrincipalComponent(props) {
                     </select>
                 </div>
                 <div className={s.buttonContainer}>
-                    <button onClick={resetFilter} className={s.boton}>Reset</button>
+                    <button onClick={resetFilter} className={s.boton}>Reset Filters</button>
                 </div>
             </div>
                 <div className={s.errorContainerChild}>

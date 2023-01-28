@@ -5,14 +5,11 @@ const {postRecipe, getAllRecipes, getRecipeById, getRecipeByName, getRecipesApi,
 const recipesRouter = Router();
 
 recipesRouter.get("/", async (req, res) => {
-    const {name, diet} = req.query;
+    const {name} = req.query;
     try {
       if(name) {
           const recipe = await getRecipeByName(name);
-          // if (!recipe.length) {
-          // res.status(400).json("No existe la receta con ese nombre")
-        // }else{
-        //   res.status(200).json(recipe)}
+           res.status(200).json(recipe)
         }else{ 
         const recipes = await getAllRecipes();
         res.status(200).json(recipes);
@@ -22,13 +19,6 @@ recipesRouter.get("/", async (req, res) => {
     }
 });
 
-// if(diet){
-//   const recipe = await getRecipesByDiet(diet)
-//   if(!recipe.length){
-//     res.status(400).json("No existe receta con esa dieta")
-//   }else{
-//     res.status(200).json(recipe)
-//   }
 
 recipesRouter.get("/api", async (req, res) => {
   try {

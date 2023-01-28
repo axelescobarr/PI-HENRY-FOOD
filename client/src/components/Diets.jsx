@@ -6,7 +6,7 @@ export default function Diets(props) {
     return(
         <div className={s.principalContainer}>
             <div className={s.btnContainer}>
-                 <NavLink className='back' to= "/principal"><img className={s.backImage} src={back}/> BACK</NavLink>
+                 <NavLink className='back' to= "/principal"><img alt='back' className={s.backImage} src={back}/> BACK</NavLink>
             </div>
             <div className={s.dietsContainer}>
                 <div className={s.textContainer}>

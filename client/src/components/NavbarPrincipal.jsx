@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import lupa from '../imagenes/lupa.png';
 import { useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { getRecipesName } from '../Redux/action';
+import { getRecipesName, setNameDetail } from '../Redux/action';
 
 export default function NavbarPrincipal(props) {
 
@@ -15,6 +15,7 @@ export default function NavbarPrincipal(props) {
 
     const searchName = () => {
         dispatch(getRecipesName(name))
+        dispatch(setNameDetail(name))
         setName('');
     } 
 
@@ -36,7 +37,6 @@ export default function NavbarPrincipal(props) {
                 <div className={s.search}>
                     <input onChange={nameHandler} value={name} className={s.searchInput} type="text" placeholder='Search recipes...'></input>
                     <button className={s.lupaContainer} onClick={searchName}><img className={s.lupa} src={lupa} alt='Icono busqueda'/></button>
-                    {console.log(name)}
                 </div>
                 <div className={s.buttonsContainer}>
                     <NavLink class='navbarLink' to= "/aboutus">About Us</NavLink>

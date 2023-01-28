@@ -11,6 +11,8 @@ export const GET_FILTER_DIET = "GET_FILTER_DIET";
 export const GET_RECIPES_NAME = "GET_RECIPES_NAME";
 export const GET_RECIPE_ID = "GET_RECIPE_ID";
 export const POST_RECIPE = "POST_RECIPE";
+export const SET_NAME_DETAIL ="SET_NAME_DETAIL";
+export const SET_DIET = "SET_DIET";
 
 
 export const getRecipes = () => {
@@ -61,13 +63,6 @@ export const hsMenor = (recipes) => {
 }
 
 export const getFilterDiet = (diet, recipes) => {
-    // return function(dispatch){
-    //     fetch(`http://localhost:3001/recipes?diet=${diet}`)
-    //     .then(res => res.json())
-    //     .then(recipes => recipes.sort((a,b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)))
-    //     .then(recipes => dispatch({type: GET_FILTER_DIET, payload: recipes}))
-    //     }
-
     let res = recipes.filter(recipe => recipe.dietss.includes(diet))
     let response = res.sort((a,b) => (a.healthScore > b.healthScore ? 1 : a.healthScore < b.healthScore ? -1 : 0))
     return({type: GET_FILTER_DIET, payload: response})
@@ -96,16 +91,24 @@ export const postRecipe = (recipe) => {
         try {
             const response = await axios.post("http://localhost:3001/recipes", recipe)
             dispatch({type: POST_RECIPE, payload: response});
-            console.log(response)
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-// name: name,
-//         summary: summary,
-//         steps: steps,
-//         image: image,
-//         dietss: dietss,
-//         healthScore: healthScore
+export const setNameDetail = (name) => {
+    return({type: SET_NAME_DETAIL, payload: name})
+}
+
+export const setDiet= (name) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post("http://localhost:3001/diets", name)
+            dispatch({type: SET_DIET, payload: response});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+

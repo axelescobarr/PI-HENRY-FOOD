@@ -8,7 +8,7 @@ export default function Page(props) {
                 <div className={s.titleContainer}>
                     <h2 className={s.title}>{props.name}</h2>
                 </div>
-                <img className={s.img} src={props.image} alt='Image recipe'/>
+                <img className={s.img} src={props.image} alt='recipe'/>
             </div>
             <div className={s.hsContainer}>
                 <h3>HEALTHSCORE:   {props.healthScore}</h3>

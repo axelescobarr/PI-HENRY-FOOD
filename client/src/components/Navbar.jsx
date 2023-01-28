@@ -1,7 +1,6 @@
 import s from '../stylesComponents/Navbar.module.css';
 import github from '../imagenes/github.png';
 import linkedin from '../imagenes/linkedin.png';
-import { NavLink } from 'react-router-dom';
 
 export default function Navbar(props) {
     return(

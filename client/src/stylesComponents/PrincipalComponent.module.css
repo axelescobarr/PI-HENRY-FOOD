@@ -197,3 +197,31 @@
     background-color: aliceblue;
     color: black;
 }
+
+.filterContainer{
+    width: 60%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diet{
+    background-color: #FFDD2D;
+    color: black;
+    border: 2px solid black;
+    margin: 0.3rem;
+    border-radius: 0.7rem;
+    padding: 0.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nameDetail{
+    background-color: #ce7fff;
+    color: black;
+    border: 2px solid black;
+    margin: 0.3rem;
+    border-radius: 0.7rem;
+    padding: 0.3rem;
+    font-family: Arial, Helvetica, sans-serif;    
+}
