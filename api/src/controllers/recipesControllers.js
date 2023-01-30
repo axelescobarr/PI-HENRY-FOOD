@@ -6,7 +6,7 @@ const getRecipesApi = async () => {
     return ( 
         await axios
         //aca tengo que hacer la llamada a la api correspondiente pero estoy usando este mocky para no gastar las request limitadas.
-        .get("http://localhost:3002/posts")
+        .get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true&number=100`)
         .then(recipes => { 
             const recipesFilter = recipes.data.results.map(recipe => {
                 return{
