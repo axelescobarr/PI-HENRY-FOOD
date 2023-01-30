@@ -9,6 +9,10 @@ import { setDiet } from '../Redux/action';
 
 export class InitialComponent extends Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     componentDidMount(){
         this.props.getRecipes();
         this.props.setDiet({name: "gluten free"})
@@ -20,28 +24,19 @@ export class InitialComponent extends Component {
         this.props.setDiet({name: "whole 30"})
         this.props.setDiet({name: "pescatarian"})
         this.props.setDiet({name: "dairy free"})
-
     }
 
     render(){
     return(
         <div className={s.initialContainer}>
-            {console.log(this.props.recipes)}
             <img alt='logo' className={s.imageLogo} src={logo}/>
             <div className={s.logo}>
                 <h1>WIKI</h1>
                 <h1>FOODS</h1>
             </div>
-            <li className='comeOn'><NavLink class='link' to= "/principal">COME ON</NavLink></li>
+            <li className='comeOn'><NavLink class='link' to= "/principal">SEE RECIPES</NavLink></li>
         </div>
-    )
-}}
-
-export const mapStateToProps = (state) => {
-    return{
-      recipes: state.recipes
-    }
-  };
+    )}}
 
 const mapDispatchToProps = (dispatch => {
     return{
@@ -50,4 +45,4 @@ const mapDispatchToProps = (dispatch => {
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InitialComponent);
+export default connect(null, mapDispatchToProps)(InitialComponent);

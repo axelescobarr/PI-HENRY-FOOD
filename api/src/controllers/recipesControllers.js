@@ -1,5 +1,4 @@
 const axios = require("axios");
-const { useRouteMatch } = require("react-router-dom");
 const {Recipe} = require("../db");
 const {API_KEY} = process.env;
 
@@ -20,82 +19,57 @@ const getRecipesApi = async () => {
                     steps: recipe.analyzedInstructions[0]?.steps.map(step => {
                         return{
                             step: step.step,
-                            number: step.number
-                        }
-                    })
-                }
-            })
-            return recipesFilter;
-        })
-        .catch(error => {return error.message})
-    )   
-};
+                            number: step.number}})}})
+            return recipesFilter;})
+        .catch(error => {return error.message}))};
 
 const getRecipesDb = async () => {
     try {
         const recipesDb = await Recipe.findAll();
-        if(!recipesDb) throw new Error('No hay usuarios registrados por el momento');
+        if(!recipesDb) throw new Error('There are no registered users at the moment');
         return recipesDb;
     } catch (error) {
-        return error;
-    }
-};
+        return error}};
 
-const postRecipe = async (name, summary, healthScore, steps, image, diets) => {
+const postRecipe = async (obj) => {
     try {
-        if(!name || !summary) throw new Error("Faltan datos obligatorios (name o summary)")
-        const obj = {  
-            name, 
-            summary, 
-            healthScore, 
-            steps,
-            image,
-            diets
-        } 
-    
-        await Recipe.create(obj);
-        return obj; 
+        if(!obj.name || !obj.summary) throw new Error("Mandatory data is missing (name or summary)")
+        const created = await Recipe.create(obj);
+        return created; 
     } catch (error) {
         return error;
-    }
-    
-};
+    }};
 
 const getAllRecipes = async () => {
     try {
         const recipesApi = await getRecipesApi();
         const recipesDb = await getRecipesDb();
         const allRecipes = [...recipesDb, ...recipesApi]
-
         return allRecipes;
     } catch (error) {
         return error;
-    }
-};
+    }};
 
 const getRecipeByName = async (name) => {
-    if (!name) throw new Error("Falta el nombre, no se puede buscar");
+    if (!name) throw new Error("Missing name, can't search");
     name = name.toLowerCase();
     try {
         const allRecipes = await getAllRecipes();
-        const recipe = allRecipes.filter(recip => recip.name.toLowerCase().includes(name) === true);
+        const recipe = allRecipes.filter(recip => recip.name.toLowerCase().includes(name));
         return recipe;
     } catch (error) {
         return error;
-    }
-}
+    }}
 
 const getRecipeById = async(id) => {
     try {
-        if(!id) throw new Error("Faltan datos por completar (id)")
+        if(!id) throw new Error("Missing data to complete (id)")
         const allRecipes = await getAllRecipes();
         const recipe = allRecipes.filter(recipe => recipe.id == id);
         return recipe;
     } catch (error) {
         return error;
-    }
-};
-
+    }};
 
 module.exports = {
     postRecipe,

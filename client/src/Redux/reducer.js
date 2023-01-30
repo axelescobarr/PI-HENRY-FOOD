@@ -11,12 +11,22 @@ import {
     GET_RECIPE_ID, 
     POST_RECIPE,
     SET_NAME_DETAIL,
-    SET_DIET} from "./action"
+    SET_DIET,
+    NEXT_PAGE,
+    PREVIOUS_PAGE,
+    TOTAL_PAGES,
+    GET_DIETS,
+    SET_DIETS_FILTER,
+    DELETE_DIETS_FILTER} from "./action"
 
 const initialState = {
     recipes: '',
     recipeDetail: '',
-    nameDetail: ''
+    nameDetail: '',
+    page: 1,
+    totalPages: 0,
+    diets: '',
+    dietsFilter: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -95,6 +105,42 @@ const reducer = (state = initialState, action) => {
         case SET_DIET:
             return{
                 ...state
+            }
+
+        case NEXT_PAGE:
+            return{
+                ...state,
+                page: state.page + 1
+            }
+
+        case PREVIOUS_PAGE:
+        return{
+            ...state,
+            page: state.page - 1
+        }
+
+        case TOTAL_PAGES:
+            return{
+                ...state,
+                totalPages: action.payload
+            }
+
+        case GET_DIETS:
+            return{
+                ...state,
+                diets: action.payload
+            }
+
+        case SET_DIETS_FILTER:
+            return{
+                ...state,
+                dietsFilter: [...state.dietsFilter, action.payload]
+            }
+
+        case DELETE_DIETS_FILTER:
+            return{
+                ...state,
+                dietsFilter: []
             }
 
         default:

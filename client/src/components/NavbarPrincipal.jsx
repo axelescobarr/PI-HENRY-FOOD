@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import lupa from '../imagenes/lupa.png';
 import { useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { getRecipesName, setNameDetail } from '../Redux/action';
+import { getRecipesName, setNameDetail, deleteDietsFilter } from '../Redux/action';
 
 export default function NavbarPrincipal(props) {
 
@@ -16,6 +16,7 @@ export default function NavbarPrincipal(props) {
     const searchName = () => {
         dispatch(getRecipesName(name))
         dispatch(setNameDetail(name))
+        dispatch(deleteDietsFilter())
         setName('');
     } 
 

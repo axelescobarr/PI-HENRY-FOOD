@@ -1,6 +1,6 @@
 const {Router} = require("express");
-const {Recipe, Diet} = require("../db");
-const {postRecipe, getAllRecipes, getRecipeById, getRecipeByName, getRecipesApi, getRecipesDb, getRecipesByDiet } = require("../controllers/recipesControllers");
+const {Diet} = require("../db");
+const {postRecipe, getAllRecipes, getRecipeById, getRecipeByName, getRecipesApi, getRecipesDb} = require("../controllers/recipesControllers");
 
 const recipesRouter = Router();
 
@@ -53,11 +53,10 @@ recipesRouter.get("/:id", async (req,res) => {
 });
 
 recipesRouter.post("/", async (req, res) => {
-  console.log(req.body)
     try {
         const { name, summary, healthScore, image, steps, dietss } = req.body;
         const nameCapitalize = name[0].toUpperCase() + name.substring(1);
-        const newRecipe = await Recipe.create({
+        const newRecipe = await postRecipe({
           name: nameCapitalize,
           summary,
           healthScore,
@@ -65,13 +64,11 @@ recipesRouter.post("/", async (req, res) => {
           steps,
           dietss
         });
-        let getAllDiet = await Diet.findAll({
-          where: {
-            name: dietss
-          }
+        let getFilterDiet = await Diet.findAll({
+          where: {name: dietss}
         });
-        newRecipe.addDiet(getAllDiet);
-        return res.status(201).json(newRecipe);
+        newRecipe.addDiet(getFilterDiet);
+        return res.status(200).json(newRecipe);
       } catch (error) {
        res.status(400).json({error: error.message});
       }

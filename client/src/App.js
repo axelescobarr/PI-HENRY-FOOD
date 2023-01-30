@@ -9,6 +9,7 @@ import Diets from './components/Diets';
 import About from './components/About';
 import CardDetail from './components/CardDetails';
 import Steps from './components/Steps';
+import Paginated from './components/Paginated';
 
 
 function App() {

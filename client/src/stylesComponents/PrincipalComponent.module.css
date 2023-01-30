@@ -20,7 +20,7 @@
     background-blend-mode: soft-light;
     background-size: cover;
     width: 100%;
-    min-height: 39rem;
+    min-height: 45rem;
     position: relative;
     top: 0;
     left: 0;
@@ -224,4 +224,11 @@
     border-radius: 0.7rem;
     padding: 0.3rem;
     font-family: Arial, Helvetica, sans-serif;    
+}
+
+.paginatedContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

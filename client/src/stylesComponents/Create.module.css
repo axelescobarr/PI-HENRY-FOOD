@@ -32,7 +32,7 @@
 
 .formContainer{
     background-color: rgba(0,0,0,0.7);
-    height: 42rem;
+    height: 46rem;
     width: 25rem;
     margin-left: 14rem;
     display: flex;
@@ -128,7 +128,7 @@ input{
 .errorContainer{
     color: red;
     border: 2px solid red;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     border-radius: 1rem;
     display: flex;
     justify-content: center;
@@ -136,10 +136,12 @@ input{
     flex-wrap: wrap;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
+    font-size: 0.65rem;
+    width: 90%;
 }
 
 .errorText{
-    margin: 0.3rem;
+    margin: 0.1rem;
 }
 
 .okContainer{

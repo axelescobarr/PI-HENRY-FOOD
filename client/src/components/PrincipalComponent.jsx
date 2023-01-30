@@ -1,48 +1,35 @@
 import s from '../stylesComponents/PrincipalComponent.module.css';
-import { getRecipes, orderAZ, orderZA, hsMayor, hsMenor, getRecipesApi, getRecipesDb, getFilterDiet, setNameDetail } from '../Redux/action';
+import { getRecipes, orderAZ, orderZA, hsMayor, hsMenor, getRecipesApi, getRecipesDb, getFilterDiet, setNameDetail, pagesTotal, getDiets, setDietsFilter, deleteDietsFilter } from '../Redux/action';
 import Card from './Card';
 import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import gif from '../imagenes/gifError.gif';
+import Paginated from './Paginated';
 
 export default function PrincipalComponent(props) {
 
-    // const [recipes, setRecipes] = useState([]);
     const recipes = useSelector((state) => state.recipes)
     const nameDetail = useSelector((state) => state.nameDetail)
+    const page = useSelector((state) => state.page)
+    const diets = useSelector((state) => state.diets)
+    const dietsFilter = useSelector((state) => state.dietsFilter)
+
     const dispatch = useDispatch();
 
-    const [page, setPage] = useState(1);
     const [alfabetico, setAlfabetico] = useState('A-Z');
     const [hs, setHs] = useState('');
     const [origin, setOrigin] = useState('');
     const [diet, setDiet] = useState('');
-    const [diets, setDiets] = useState([]);
 
-    const numberOfRecipes = 9;
-    const recipesPage = page * numberOfRecipes;
-    const indexOfFirstPost = recipesPage - numberOfRecipes;
-    const currentPosts = recipes.slice(indexOfFirstPost, recipesPage);
-    const totalPages = Math.ceil(recipes.length / numberOfRecipes);
+    const recipesPage = page * 9;
+    const index = recipesPage - 9;
+    const posts = recipes.slice(index, recipesPage);
+    const totalPages = Math.ceil(recipes.length / 9);
 
     useEffect(() => {
-        // dispatch(getRecipes());
-        setDiets([]);
-    },[nameDetail])
-
-    const incrementPage = () =>{
-        if(page >= totalPages){
-            return 0;
-        }
-        setPage(page + 1);
-     }
-     
-     const decrementPage = () =>{
-        if(page <= 1){
-            return 0;
-        }
-        setPage(page - 1);
-     }
+        dispatch(pagesTotal(totalPages));
+        dispatch(getDiets());
+    },[recipes])
 
      const handlerAlfabetico = (value) => {
         if(value.target.value === 'A-Z'){
@@ -67,32 +54,38 @@ export default function PrincipalComponent(props) {
      const handlerOrigin = (value) => {
         if(value.target.value === 'API'){
             dispatch(getRecipesApi())
+            dispatch(setNameDetail(""))
+            dispatch(deleteDietsFilter())
             setDiet("All");
             setHs("Select");
             setAlfabetico("A-Z");
         }
         if(value.target.value === 'All'){
             dispatch(getRecipes())
+            dispatch(setNameDetail(""))
+            dispatch(deleteDietsFilter())
             setDiet("All");
             setHs("Select");
             setAlfabetico("A-Z");
         }
         if(value.target.value === 'Created'){
             dispatch(getRecipesDb())
+            dispatch(setNameDetail(""))
+            dispatch(deleteDietsFilter())
             setDiet("All");
             setHs("Select");
             setAlfabetico("A-Z");
         }
         setOrigin(value.target.value)
      }
-
+ 
      const handlerDiet = (value) => {
         if(value.target.value === 'all') {
             dispatch(getRecipes())
         }else{
             dispatch(getFilterDiet(value.target.value, recipes))
             setDiet(value.target.value);
-            setDiets([...diets, value.target.value])
+            dispatch(setDietsFilter(value.target.value))
         }
         
      }
@@ -102,13 +95,12 @@ export default function PrincipalComponent(props) {
         setHs("");
         setDiet("");
         setOrigin("");
-        setDiets([]);
+        dispatch(deleteDietsFilter());
         dispatch(setNameDetail(''));
         dispatch(getRecipes());
      }
 
-    return recipes.length > 0 && recipes !== undefined ? (
-        <div className={s.principalContainer}>
+    return(<div className={s.principalContainer}>
             <div className={s.selects}>
                 <div className={s.inputOrder}>
                 <label>Alphabetical Order</label>
@@ -121,15 +113,7 @@ export default function PrincipalComponent(props) {
                     <label>Type of Diet</label>
                     <select value={diet} onChange={handlerDiet} className={s.input} name='typesDiet' key="dietas">
                         <option value="all">All</option>
-                        <option value="gluten free">Gluten free</option>
-                        <option value="ketogenic">Ketogenic</option>
-                        <option value="lacto ovo vegetarian">Lacto-ovo Vegetarian</option>
-                        <option value="vegan">Vegan</option>
-                        <option value="paleolithic">Paleolithic</option>
-                        <option value="primal">Primal</option>
-                        <option value="whole 30">Whole 30</option>
-                        <option value="pescatarian">Pescatarian</option>
-                        <option value="dairy free">Dairy free</option>
+                        {diets.length && diets.map(d => <option value={d.name}>{d.name}</option>)}
                     </select>
                 </div>
                 <div className={s.inputHS}>
@@ -152,74 +136,23 @@ export default function PrincipalComponent(props) {
                     <button onClick={resetFilter} className={s.boton}>Reset Filters</button>
                 </div>
             </div>
-            {(diets.length || nameDetail.length) && <div className={s.filterContainer}>
-                {diets && diets.map(d => <p key={d} className={s.diet}>{d}</p>)}
+            {(dietsFilter.length || nameDetail.length) && <div className={s.filterContainer}>
+                {dietsFilter && dietsFilter.map(d => <p key={d} className={s.diet}>{d}</p>)}
                 {nameDetail && <p className={s.nameDetail}>{nameDetail}</p>}
             </div>}
-            <div className={s.pageContainer}>
-                <button onClick={decrementPage} className={s.btn}><h1>&lt;</h1></button>
-                <h1 className={s.pageText}>PAGE {page} FROM {totalPages}</h1>
-                <button onClick={incrementPage} className={s.btn}><h1>&gt;</h1></button>
-            </div>
-            <div className={s.cardsContainer}>
-                {currentPosts.length && currentPosts.map(recipe => <Card name={recipe.name} id={recipe.id} image={recipe.image} healthScore={recipe.healthScore} dietss={recipe.dietss}/>)}
-            </div>
-            <div className={s.pageContainer}>
-                <button onClick={decrementPage} className={s.btn}><h1>&lt;</h1></button>
-                <h1 className={s.pageText}>PAGE {page} FROM {totalPages}</h1>
-                <button onClick={incrementPage} className={s.btn}><h1>&gt;</h1></button>
-            </div>
-        </div>
-    ) : (
-        <div className={s.errorContainer}>
-            <div className={s.selects}>
-                <div className={s.inputOrder}>
-                <label>Alphabetical Order</label>
-                    <select value={alfabetico} onChange={handlerAlfabetico} className={s.input} name='Ordenamiento' key="orden">
-                        <option value="A-Z">A-Z</option>
-                        <option value="Z-A">Z-A</option>
-                    </select>
+            {recipes.length > 0 && recipes !== undefined && <div className={s.paginatedContainer}>
+                <Paginated/>
+                <div className={s.cardsContainer}>
+                    {posts.length && posts.map(recipe => <Card name={recipe.name} id={recipe.id} image={recipe.image} healthScore={recipe.healthScore} dietss={recipe.dietss}/>)}
                 </div>
-                <div className={s.inputDiet}>
-                    <label>Type of Diet</label>
-                    <select value={diet} onChange={handlerDiet} className={s.input} name='typesDiet' key="dietas">
-                        {console.log(diet)}
-                        <option value="all">All</option>
-                        <option value="gluten free">Gluten free</option>
-                        <option value="ketogenic">Ketogenic</option>
-                        <option value="lacto ovo vegetarian">Lacto-ovo Vegetarian</option>
-                        <option value="vegan">Vegan</option>
-                        <option value="paleolithic">Paleolithic</option>
-                        <option value="primal">Primal</option>
-                        <option value="whole 30">Whole 30</option>
-                        <option value="pescatarian">Pescatarian</option>
-                        <option value="dairy free">Dairy free</option>
-                    </select>
-                </div>
-                <div className={s.inputHS}>
-                    <label>HealtScore</label>
-                    <select value={hs} className={s.input} onChange={handlerHS}  name='hS' key="healthScore">
-                        <option value="Select">Select</option>
-                        <option value="Ascending">Ascending</option>
-                        <option value="Descending">Descending</option>
-                    </select>
-                </div>
-                <div className={s.inputOrigin}>
-                    <label>Origin Recipe</label>
-                    <select value={origin} className={s.input} onChange={handlerOrigin} name='origin' key="originRecipe">
-                        <option value="All">All</option>
-                        <option value="API">API</option>
-                        <option value="Created">Created</option>
-                    </select>
-                </div>
-                <div className={s.buttonContainer}>
-                    <button onClick={resetFilter} className={s.boton}>Reset Filters</button>
-                </div>
-            </div>
+                <Paginated/>
+            </div>}
+
+            {(recipes.length <= 0 || recipes === undefined) && <div className={s.errorContainer}>
                 <div className={s.errorContainerChild}>
                     <h2 className={s.errorText}>RECIPES NOT FOUND</h2>
                     <img src={gif} alt='Gif error'/>
                 </div>
-        </div>
-    )
+            </div>}         
+        </div>)
 }
